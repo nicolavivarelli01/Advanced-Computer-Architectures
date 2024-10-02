@@ -1,7 +1,7 @@
 .data
-v1 = .byte 2, 6, -3, 11, 9, 18, -13, 16, 5, 1 #byte riserva 1 byte
-v2 = .byte 4, 2, -13, 3, 9, 9, 7, 16, 4, 7 #word riserva 2 byte
-v3 = .space 10
+v1  = .byte 2, 6, -3, 11, 9, 18, -13, 16, 5, 1 #byte riserva 1 byte
+v2  = .byte 4, 2, -13, 3, 9, 9, 7, 16, 4, 7 #word riserva 2 byte
+v3  = .space 10
 
 .text
 
