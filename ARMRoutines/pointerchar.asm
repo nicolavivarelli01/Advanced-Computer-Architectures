@@ -37,11 +37,14 @@ loop_2
 				SUBS r4, r4, #1
 				bne loop_2
 				
+				MOV r0, r5
+				
 				AND r9, r5, #1
 				CMP r9, #1
 				MOVEQ r9, #0 ;se dispari
 				MOVNE r9, #1 ;se pari
 				STRB r9, [r2, #0] ; ricorda di passarlo in c come &char e dichiararlo normale
+				
 				
 				
 				; restore volatile registers
