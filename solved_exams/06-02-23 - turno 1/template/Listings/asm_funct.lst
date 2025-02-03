@@ -1,0 +1,97 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000                 AREA             asm_functions, CODE, READONLY
+    2 00000000                 EXPORT           ASM_funct
+    3 00000000         ASM_funct
+    4 00000000         ; save current SP for a faster access 
+    5 00000000         ; to parameters in the stack
+    6 00000000         ;POP{r4}
+    7 00000000         
+    8 00000000         
+    9 00000000         
+   10 00000000 46EC            MOV              r12, sp
+   11 00000002         ; save volatile registers
+   12 00000002 E92D 4FF0       STMFD            sp!,{r4-r11,lr}
+   13 00000006         
+   14 00000006         ;r0 vett
+   15 00000006         ;r1 size
+   16 00000006         ;r2 over
+   17 00000006         
+   18 00000006         
+   19 00000006 F04F 0400       MOV              r4, #0      ;sum positivi
+   20 0000000A F04F 0500       MOV              r5, #0      ;sum negativi
+   21 0000000E 460E            MOV              r6, r1      ; size in r6
+   22 00000010 F04F 0700       MOV              r7, #0      ; offset
+   23 00000014 F04F 0900       MOV              r9, #0      ; num pos
+   24 00000018 F04F 0A00       MOV              r10, #0     ;num neg
+   25 0000001C         
+   26 0000001C         loop
+   27 0000001C F850 8007       LDR              r8, [r0, r7] ;carico
+   28 00000020 F1B8 0F00       CMP              r8, #0
+   29 00000024 BFA7 4444       ADDGE            r4, r8, r4  ; sum positive
+   30 00000028 F109 0901       ADDGE            r9, r9, #1  ;num positive
+   31 0000002C 4445            ADDLT            r5, r8, r5  ; sum negative
+   32 0000002E F10A 0A01       ADDLT            r10, r10, #1 ; num negative
+   33 00000032         
+   34 00000032 F107 0704       ADD              r7, r7, #4
+   35 00000036 1E76            SUBS             r6, r6, #1
+   36 00000038 D1F0            bne              loop
+   37 0000003A         
+   38 0000003A         
+   39 0000003A         
+   40 0000003A FBB4 F8F9       UDIV             r8, r4, r9  ;media pos
+   41 0000003E FBB5 F9FA       UDIV             r9, r5, r10 ;media neg
+   42 00000042 EBB8 0B09       SUBS             r11, r8, r9 ;diff pos neg
+   43 00000046 BF64 24FF       MOVVS            r4, #0xFF
+   44 0000004A 6014            STRVS            r4, [r2]
+   45 0000004C         
+   46 0000004C 4658            MOV              r0, r11
+   47 0000004E         ; restore volatile registers
+   48 0000004E E8BD 8FF0       LDMFD            sp!,{r4-r11,pc}
+   49 00000052         
+   50 00000052                 END
+Command Line: --debug --xref --diag_suppress=9931,A1950W --cpu=Cortex-M3 --depe
+nd=.\objects\asm_funct.d -o.\objects\asm_funct.o -I.\Source\button_EXINT -I.\So
+urce\CMSIS_core -I.\Source\joystick -I.\Source\led -I.\Source\RIT -I.\Source\ti
+mer -I.\Source -I.\RTE\_LandTiger_LPC1768__release_ -IC:\Users\nicolavivarelli\
+AppData\Local\Arm\Packs\ARM\CMSIS\6.1.0\CMSIS\Core\Include -IC:\Users\nicolaviv
+arelli\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.2\Device\Include --predefin
+e="__EVAL SETA 1" --predefine="__UVISION_VERSION SETA 541" --predefine="LPC175x
+_6x SETA 1" --predefine="_RTE_ SETA 1" --list=.\listings\asm_funct.lst ASM_func
+t.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+ASM_funct 00000000
+
+Symbol: ASM_funct
+   Definitions
+      At line 3 in file ASM_funct.s
+   Uses
+      At line 2 in file ASM_funct.s
+Comment: ASM_funct used once
+asm_functions 00000000
+
+Symbol: asm_functions
+   Definitions
+      At line 1 in file ASM_funct.s
+   Uses
+      None
+Comment: asm_functions unused
+loop 0000001C
+
+Symbol: loop
+   Definitions
+      At line 26 in file ASM_funct.s
+   Uses
+      At line 36 in file ASM_funct.s
+Comment: loop used once
+3 symbols
+337 symbols in table
